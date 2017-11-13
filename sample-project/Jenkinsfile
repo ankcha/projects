@@ -33,7 +33,7 @@ node {
    stage('Run') {
        dir('sample-project'){
             if (isUnix()) {
-                sh "java -cp target/dependency-graph-1.0-SNAPSHOT.jar com.graph.dependencies.App"
+                sh "java -cp target/classes/ com.graph.dependencies.App"
             } 
             else {
                 error("Build failed because this pipeline is being executed on Windows")
