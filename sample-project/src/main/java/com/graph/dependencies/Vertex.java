@@ -13,7 +13,11 @@ public class Vertex {
     boolean visited;
 
     public Vertex(String label){
-        this.label = label;
+        if(_validateLabel(label))
+            this.label = label;
+        else
+            throw new IllegalArgumentException("Unable to create vertex. The label is invalid.");
+
         this.directDependencies = new ArrayList<Edge>();
     }
 
@@ -22,7 +26,6 @@ public class Vertex {
             // edge already exists for the given vertex, avoid adding duplicate edges
             return;
         }
-
         this.directDependencies.add(edge);
     }
 
@@ -64,5 +67,15 @@ public class Vertex {
     // check if an edge already exists for a given vertex
     public boolean containsDirectDependency(Edge other){
         return this.directDependencies.contains(other);
+    }
+
+    private boolean _validateLabel(String label){
+        boolean result = false;
+        if(label != null){
+            if(!label.isEmpty()){
+                result = true;
+            }
+        }
+        return result;
     }
 }

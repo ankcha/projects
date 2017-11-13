@@ -35,6 +35,7 @@ public class Graph {
 
         if(one.equals(two)){
             // Avoiding direct cyclic
+            System.out.println("Avoiding cyclic dependency: " + one.getLabel());
             return false;
         }
         else {
@@ -43,9 +44,11 @@ public class Graph {
 
             // Let's quickly check the graph to see if an edge already exists
             if (edges.containsKey(e.hashCode())) {
+                System.out.println("Edge already exists: " + one.getLabel() + "->" + two.getLabel());
                 result = false;
             } else if (one.containsDirectDependency(e) || two.containsDirectDependency(e)) {
                 // Edge is already part of the vertex object. One way to avoid this is to not expose Vertex CRUD operations publicly
+                System.out.println("Edge is already part of vertex object: " + one.getLabel() + "->" + two.getLabel());
                 result = false;
             } else {
                 // A new edge, so let's add it
@@ -68,6 +71,7 @@ public class Graph {
             Vertex current = this.vertices.get(vertex.getLabel());
             if (current != null) {
                 //already exists
+                //System.out.println("vertex already exists");
                 result = true;
             } else {
                 //New vertex, let's add it to the graph
@@ -109,7 +113,7 @@ public class Graph {
         return this.vertices.keySet();
     }
 
-    public Set<Edge> getEddges() {
+    public Set<Edge> getEdges() {
         return new HashSet<Edge>(this.edges.values());
     }
 

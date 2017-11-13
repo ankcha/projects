@@ -14,7 +14,7 @@ mvn clean install
 
 ## How to run this project
 ```
-java -cp target/dependency-graph-1.0-SNAPSHOT.jar com.graph.dependencies.App
+java -cp target/dependency-graph-1.0-SNAPSHOT.jar com.graph.dependencies.App $LOCATION_OF_GRAPH.TXT
 ```
 
 ## How to build this project via Jenkins
