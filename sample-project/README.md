@@ -6,6 +6,7 @@ Pre-req
 * Install Java
 * Install Maven
 
+### Build Step
 ```
 git clone https://github.com/ankcha/projects
 cd sample-project
@@ -23,3 +24,10 @@ java -cp target/dependency-graph-1.0-SNAPSHOT.jar com.graph.dependencies.App $LO
 * Create a Jenkins Pipeline job, use [Jenkinsfile](https://github.com/ankcha/projects/blob/master/sample-project/Jenkinsfile). 
 * Create and populate CREDENTIAL_ID parameter as part of this build job.
 * Run the newly created job
+
+## How to containerize this application
+* Follow the Build Step
+* ```docker build . -t graph-traversal:0.1```
+* ```docker run -d -v $PATH_TO_SRC/projects/sample-project/src/test/resources/:/usr/app/data traverse-graph:0.1```
+* ```docker logs $CONTAINER``` will display the output
+
