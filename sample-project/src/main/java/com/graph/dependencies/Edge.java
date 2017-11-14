@@ -7,10 +7,12 @@ package com.graph.dependencies;
 public class Edge {
 
     private Vertex one, two;
+    private int weight;
 
     public Edge(Vertex one, Vertex two){
         this.one = one;
         this.two = two;
+        this.weight = 0;
      }
 
     public Vertex getOne(){
@@ -20,6 +22,10 @@ public class Edge {
     public Vertex getTwo(){
         return this.two;
     }
+
+    public int getWeight() {return this.weight;}
+
+    public void setWeight(int weight) {this.weight = weight;}
 
     public String toString(){
         return one + "->" + two;
