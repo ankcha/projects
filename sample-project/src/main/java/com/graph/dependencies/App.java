@@ -99,11 +99,10 @@ public class App
             Edge e = v.getDirectDependency(j);
             Vertex dependency = e.getTwo();
 
-            if(v.visited)
-                System.out.print("|");
+            for (int t = 0; t < a.depth; t++) {
 
-            for (int t = 0; t < a.depth; t++)
-                System.out.print("  ");
+                System.out.print("|  ");
+            }
 
             if(j!=0) {
                 // 2nd and + dependency = \
@@ -113,7 +112,7 @@ public class App
             else{
                 a.depth ++;
                 // dependency = |
-                System.out.print("|");
+               System.out.print("|");
             }
 
             e.setWeight(a.depth);
