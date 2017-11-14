@@ -14,10 +14,12 @@ import java.util.HashMap;
 public class App 
 {
     public static String TOKEN = "->";
+    public int depth = 1;
 
     public static void main( String[] args ) {
 
         Graph graph = new Graph();
+        App a = new App();
 
         if(args.length != 1)
             throw new IllegalArgumentException("Location of graph input not provided. Usage: java com.graph.dependencies.App LOCATION_OF_GRAPH.TXT");
@@ -49,6 +51,7 @@ public class App
 
         Vertex[] verticesArray = new Vertex[vertices.size()];
 
+        // Create vertex objects
         int index=0;
         for (String value : vertices.values()) {
 
@@ -59,6 +62,7 @@ public class App
 
         System.out.println("Vertices: " + graph.vertexKeys());
 
+        // Create edge objects and update the graph
         for (String line : edgesMap.values()){
             String[] tokens =line.split(TOKEN);
             graph.addEdge(graph.getVertex(tokens[0]), graph.getVertex(tokens[1]));
@@ -67,45 +71,50 @@ public class App
 
         System.out.println("Edges: " + graph.getEdges());
 
-        printDependencies(graph.getVertex("A"));
+        printDependencies(graph.getVertex("A"), a);
 
     }
 
 
 
 
-    static void printDependencies(Vertex v){
+    static void printDependencies(Vertex v, App a){
 
-        //System.out.print("\t");
-
-        //System.out.println(v.getDirectDependencyCount());
+        if(!v.visited) {
+            System.out.println(v.getLabel());
+        }
 
         for (int j = 0; j < v.getDirectDependencyCount(); j++) {
-            //System.out.print("|");
-
-            if(!v.visited ) {
-                System.out.println(v.getLabel());
-            }
-            if(j!=0) {
-                // 2nd and + dependency = \
-                System.out.print("\t\\_");
-            }
-            else{
-                // dependency = |_
-                System.out.print("\t|_");
-            }
 
             Edge e = v.getDirectDependency(j);
             Vertex dependency = e.getTwo();
 
-            v.visited = true;
+            for (int t = 1; t<=a.depth; t++)
+                System.out.print("\t");
+            if(j!=0) {
+                // 2nd and + dependency = \
+                a.depth ++;
+                System.out.print("\\_");
+            }
+            else{
+                a.depth ++;
+                // dependency = |_
+                System.out.print("|_");
+            }
+
+            e.setWeight(a.depth);
+
             System.out.println(dependency.getLabel());
+
+            //System.out.println("    " + e + "::" + e.getWeight());
 
             dependency.visited=true;
 
-            printDependencies(v.getDirectDependency(j).getTwo());
+            printDependencies(e.getTwo(), a);
+
 
         }
+        a.depth --;
     }
- }
+}
 
