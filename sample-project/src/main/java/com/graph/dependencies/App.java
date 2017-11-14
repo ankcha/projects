@@ -21,6 +21,7 @@ public class App
         Graph graph = new Graph();
         App a = new App();
 
+        /* Validate Input */
         if(args.length != 1)
             throw new IllegalArgumentException("Location of graph input not provided. Usage: java com.graph.dependencies.App LOCATION_OF_GRAPH.TXT");
 
@@ -39,6 +40,10 @@ public class App
 
                 String[] tokens = line.split(TOKEN);
 
+                /* Validate Input */
+                if(tokens[0].isEmpty() || tokens[1].isEmpty())
+                    throw new Exception("Contents of the input file " +fileName+" are not valid.");
+
                 vertices.put(tokens[0].hashCode(),tokens[0]);
                 vertices.put(tokens[1].hashCode(),tokens[1]);
                 edgesMap.put((tokens[0]+tokens[1]).hashCode(), line);
@@ -47,6 +52,10 @@ public class App
         } catch(IOException ioe)
         {
             ioe.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
         }
 
         Vertex[] verticesArray = new Vertex[vertices.size()];
@@ -118,5 +127,6 @@ public class App
         }
         a.depth --;
     }
+
 }
 
