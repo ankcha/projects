@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class App 
 {
     public static String TOKEN = "->";
-    public int depth = 1;
+    public int depth = 0;
 
     public static void main( String[] args ) {
 
@@ -84,34 +84,36 @@ public class App
             System.out.println(v.getLabel());
         }
 
+
         for (int j = 0; j < v.getDirectDependencyCount(); j++) {
 
             Edge e = v.getDirectDependency(j);
             Vertex dependency = e.getTwo();
 
-            for (int t = 1; t<=a.depth; t++)
+            if(v.visited)
+                System.out.print("|");
+
+            for (int t = 0; t < a.depth; t++)
                 System.out.print("\t");
+
             if(j!=0) {
                 // 2nd and + dependency = \
                 a.depth ++;
-                System.out.print("\\_");
+                System.out.print("\\");
             }
             else{
                 a.depth ++;
-                // dependency = |_
-                System.out.print("|_");
+                // dependency = |
+                System.out.print("|");
             }
 
             e.setWeight(a.depth);
 
-            System.out.println(dependency.getLabel());
-
-            //System.out.println("    " + e + "::" + e.getWeight());
+            System.out.println("_ " +dependency.getLabel());
 
             dependency.visited=true;
 
             printDependencies(e.getTwo(), a);
-
 
         }
         a.depth --;
