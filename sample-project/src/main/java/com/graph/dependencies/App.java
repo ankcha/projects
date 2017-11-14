@@ -94,7 +94,7 @@ public class App
                 System.out.print("|");
 
             for (int t = 0; t < a.depth; t++)
-                System.out.print("\t");
+                System.out.print("  ");
 
             if(j!=0) {
                 // 2nd and + dependency = \
